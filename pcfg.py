@@ -81,8 +81,8 @@ def load_pickles():
 
 def clean_up():
     print "Cleaning Up!"
-    os.remove("grammar.pickle")
-    os.remove("terminal.pickle")
+    #os.remove("grammar.pickle")
+    #os.remove("terminal.pickle")
     os.remove("pickles.zip")
 
 ### Get probability score for honeyword ###
@@ -153,8 +153,9 @@ if len(sys.argv) != 4:
     print "     filename        the filename of input"
     sys.exit(1)
 
-download_pickles_zip()
-unzip_pickles()
+if not os.path.isfile("grammar.pickle"):
+    download_pickles_zip()
+    unzip_pickles()
 start, term = load_pickles()
 sweetword_set = read_sweetword_set(sys.argv[3])
 print ",".join(get_sweetword_index_set(sweetword_set, start, term))
